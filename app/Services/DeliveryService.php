@@ -26,8 +26,15 @@ class DeliveryService
 
     public function generateIdentifier(): string
     {
-        $year = Carbon::now()->year;
-        $lastDelivery = Delivery::where('identifier', 'like', "DEL-{$year}-%")
+        $now = Carbon::now();
+        $day = $now->format('d');
+        $dayName = $now->format('D'); // Mon, Tue, Wed, etc.
+        $month = $now->format('m');
+        $year = $now->format('y');
+        
+        $datePrefix = sprintf('%s-%s-%s-%s', $day, $dayName, $month, $year);
+        
+        $lastDelivery = Delivery::where('identifier', 'like', "{$datePrefix}-%")
             ->orderByRaw('CAST(SUBSTRING(identifier, -4) AS UNSIGNED) DESC')
             ->first();
 
@@ -37,7 +44,7 @@ class DeliveryService
             $nextNumber = 1;
         }
 
-        return sprintf('DEL-%s-%04d', $year, $nextNumber);
+        return sprintf('%s-%04d', $datePrefix, $nextNumber);
     }
 
     public function submitDelivery(Delivery $delivery): void

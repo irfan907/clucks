@@ -31,16 +31,30 @@
         .info-section {
             margin-bottom: 25px;
         }
-        .info-row {
-            display: flex;
-            margin-bottom: 8px;
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .info-table td {
+            padding: 8px 10px;
+            vertical-align: top;
+            width: 33.33%;
+            background-color: #f9fafb;
+            border: 1px solid #ddd;
+        }
+        .info-item {
+            padding: 5px;
         }
         .info-label {
             font-weight: bold;
-            width: 150px;
+            font-size: 9px;
+            color: #666;
+            margin-bottom: 3px;
+            text-transform: uppercase;
         }
         .info-value {
-            flex: 1;
+            font-size: 11px;
+            color: #333;
         }
         .status-badge {
             display: inline-block;
@@ -128,46 +142,50 @@
     </div>
 
     <div class="info-section">
-        <div class="info-row">
-            <div class="info-label">Status:</div>
-            <div class="info-value">
-                @if($delivery->status === \App\DeliveryStatus::Submitted)
-                    <span class="status-badge status-submitted">Submitted</span>
-                @elseif($delivery->status === \App\DeliveryStatus::Approved)
-                    <span class="status-badge status-approved">Approved</span>
-                @elseif($delivery->status === \App\DeliveryStatus::Delivered)
-                    <span class="status-badge status-delivered">Delivered</span>
-                @else
-                    <span class="status-badge status-draft">Draft</span>
-                @endif
-            </div>
-        </div>
-        <div class="info-row">
-            <div class="info-label">Created By:</div>
-            <div class="info-value">{{ $delivery->creator->name }}</div>
-        </div>
-        <div class="info-row">
-            <div class="info-label">Created Date:</div>
-            <div class="info-value">{{ $delivery->created_at->format('F d, Y H:i') }}</div>
-        </div>
-        @if($delivery->submitted_at)
-        <div class="info-row">
-            <div class="info-label">Submitted Date:</div>
-            <div class="info-value">{{ $delivery->submitted_at->format('F d, Y H:i') }}</div>
-        </div>
-        @endif
-        @if($delivery->approved_at)
-        <div class="info-row">
-            <div class="info-label">Approved Date:</div>
-            <div class="info-value">{{ $delivery->approved_at->format('F d, Y H:i') }}</div>
-        </div>
-        @endif
-        @if($delivery->finalized_at)
-        <div class="info-row">
-            <div class="info-label">Finalized Date:</div>
-            <div class="info-value">{{ $delivery->finalized_at->format('F d, Y H:i') }}</div>
-        </div>
-        @endif
+        <table class="info-table">
+            <tr>
+                <td>
+                    <div class="info-item">
+                        <div class="info-label">Status</div>
+                        <div class="info-value">
+                            @if($delivery->status === \App\DeliveryStatus::Submitted)
+                                <span class="status-badge status-submitted">Submitted</span>
+                            @elseif($delivery->status === \App\DeliveryStatus::Approved)
+                                <span class="status-badge status-approved">Approved</span>
+                            @elseif($delivery->status === \App\DeliveryStatus::Delivered)
+                                <span class="status-badge status-delivered">Delivered</span>
+                            @else
+                                <span class="status-badge status-draft">Draft</span>
+                            @endif
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="info-item">
+                        <div class="info-label">Approved Date</div>
+                        <div class="info-value">
+                            @if($delivery->approved_at)
+                                {{ $delivery->approved_at->format('M d, Y H:i') }}
+                            @else
+                                <span style="color: #999;">-</span>
+                            @endif
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="info-item">
+                        <div class="info-label">Delivered Date</div>
+                        <div class="info-value">
+                            @if($delivery->finalized_at)
+                                {{ $delivery->finalized_at->format('M d, Y H:i') }}
+                            @else
+                                <span style="color: #999;">-</span>
+                            @endif
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
 
     <h2 style="margin-top: 30px; margin-bottom: 15px; font-size: 16px; font-weight: bold;">Delivery Items</h2>
