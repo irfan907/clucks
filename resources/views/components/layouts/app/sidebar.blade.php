@@ -27,6 +27,9 @@
                 <flux:navlist.group :heading="__('Receiving')" class="grid">
                     <flux:navlist.item icon="arrow-down-tray" :href="route('receivings.select-delivery')" :current="request()->routeIs('receivings.*')" wire:navigate>{{ __('Receive Stock') }}</flux:navlist.item>
                 </flux:navlist.group>
+                <flux:navlist.group :heading="__('Administration')" class="grid">
+                    <flux:navlist.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>{{ __('Users') }}</flux:navlist.item>
+                </flux:navlist.group>
             </flux:navlist>
 
             <flux:spacer />

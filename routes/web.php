@@ -20,6 +20,9 @@ use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\TwoFactor;
 use App\Livewire\Stock\Index as StockIndex;
+use App\Livewire\Users\Create as UserCreate;
+use App\Livewire\Users\Edit as UserEdit;
+use App\Livewire\Users\Index as UserIndex;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
@@ -74,4 +77,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('receivings/create/{delivery}', ReceivingCreate::class)->name('receivings.create');
     Route::get('receivings/{receiving}', ReceivingShow::class)->name('receivings.show');
     Route::get('deliveries/{delivery}/receivings', ReceivingsList::class)->name('receivings.list');
+
+    // Users
+    Route::get('users', UserIndex::class)->name('users.index');
+    Route::get('users/create', UserCreate::class)->name('users.create');
+    Route::get('users/{user}/edit', UserEdit::class)->name('users.edit');
 });

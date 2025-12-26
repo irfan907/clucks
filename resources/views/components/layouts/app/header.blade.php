@@ -27,6 +27,9 @@
                 <flux:navbar.item icon="document-text" :href="route('deliveries.my')" :current="request()->routeIs('deliveries.*')" wire:navigate>
                     {{ __('Deliveries') }}
                 </flux:navbar.item>
+                <flux:navbar.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>
+                    {{ __('Users') }}
+                </flux:navbar.item>
             </flux:navbar>
 
             <flux:spacer />
@@ -107,6 +110,9 @@
                 </flux:navlist.group>
                 <flux:navlist.group :heading="__('Receiving')">
                     <flux:navlist.item icon="arrow-down-tray" :href="route('receivings.select-delivery')" :current="request()->routeIs('receivings.*')" wire:navigate>{{ __('Receive Stock') }}</flux:navlist.item>
+                </flux:navlist.group>
+                <flux:navlist.group :heading="__('Administration')">
+                    <flux:navlist.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.*')" wire:navigate>{{ __('Users') }}</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
 
