@@ -17,6 +17,10 @@
         <flux:input wire:model="password_confirmation" :label="__('Confirm Password')" type="password" required />
         <flux:error name="password_confirmation" />
 
+        <flux:input wire:model="pin" :label="__('PIN (4 digits)')" type="text" maxlength="4" pattern="[0-9]{4}" inputmode="numeric" placeholder="0000" />
+        <flux:error name="pin" />
+        <flux:text class="text-xs text-zinc-500 dark:text-zinc-400">{{ __('Optional: 4-digit PIN for quick login') }}</flux:text>
+
         <div class="flex flex-col gap-3 border-t border-zinc-200 pt-4 dark:border-zinc-700 sm:flex-row sm:items-center">
             <flux:button :href="route('users.index')" wire:navigate variant="ghost" class="w-full sm:w-auto">{{ __('Cancel') }}</flux:button>
             <flux:button type="submit" variant="primary" class="w-full sm:w-auto">{{ __('Create') }}</flux:button>

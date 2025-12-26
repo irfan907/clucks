@@ -12,6 +12,7 @@ class Create extends Component
     public string $email = '';
     public string $password = '';
     public string $password_confirmation = '';
+    public ?string $pin = null;
 
     protected function rules(): array
     {
@@ -19,6 +20,7 @@ class Create extends Component
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'pin' => ['nullable', 'string', 'size:4', 'regex:/^[0-9]{4}$/'],
         ];
     }
 
@@ -26,12 +28,18 @@ class Create extends Component
     {
         $validated = $this->validate();
 
-        User::create([
+        $data = [
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
             'email_verified_at' => now(),
-        ]);
+        ];
+
+        if (!empty($validated['pin'])) {
+            $data['pin'] = Hash::make($validated['pin']);
+        }
+
+        User::create($data);
 
         $this->redirect(route('users.index'), navigate: true);
     }

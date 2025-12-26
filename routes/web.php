@@ -35,6 +35,10 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+// PIN Login (public routes)
+Route::get('login/pin', [App\Http\Controllers\Auth\PinLoginController::class, 'show'])->name('login.pin');
+Route::post('login/pin', [App\Http\Controllers\Auth\PinLoginController::class, 'store'])->name('login.pin.store');
+
 Route::middleware(['auth'])->group(function () {
     // Settings
     Route::redirect('settings', 'settings/profile');
