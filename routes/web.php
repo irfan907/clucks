@@ -75,6 +75,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('deliveries/create', DeliveryCreate::class)->name('deliveries.create');
     Route::get('deliveries/{delivery}', DeliveryShow::class)->name('deliveries.show');
     Route::get('deliveries/{delivery}/edit', DeliveryEdit::class)->name('deliveries.edit');
+    Route::get('deliveries/{delivery}/pdf', [App\Http\Controllers\DeliveryPdfController::class, 'download'])->name('deliveries.pdf');
 
     // Receivings
     Route::get('receivings/select-delivery', SelectDelivery::class)->name('receivings.select-delivery');

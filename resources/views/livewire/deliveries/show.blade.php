@@ -5,6 +5,9 @@
             <flux:subheading class="text-sm">{{ __('Delivery details') }}</flux:subheading>
         </div>
         <div class="flex flex-wrap items-center gap-2">
+            <flux:button :href="route('deliveries.pdf', $delivery)" variant="ghost" size="sm" class="flex-1 sm:flex-none" target="_blank">
+                {{ __('Download PDF') }}
+            </flux:button>
             @if($delivery->status === \App\DeliveryStatus::Submitted)
                 <flux:button wire:click="approve" wire:confirm="{{ __('Approve this delivery?') }}" variant="primary" size="sm" class="flex-1 sm:flex-none">
                     {{ __('Approve') }}
